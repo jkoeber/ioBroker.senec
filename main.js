@@ -1,1 +1,0 @@
-var utils = require(__dirname + '/lib/utils'); // Get common adapter utils - mandatory
