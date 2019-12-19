@@ -8,8 +8,8 @@
 			"en":"Read all informations from senec cgi service"
 		},
 		"authors": [
-			"Johannes Köber <jkoeber@gmail.com>"
-		]
+			"Johannes Koeber <jkoeber@gmail.com>"
+		],
 		"platform":"Javascript/Node.js",
 		"mode":"daemon",
 		"enabled":"false",
