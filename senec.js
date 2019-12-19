@@ -1,7 +1,8 @@
-var utils = require('@iobroker/adapter-core'); // Get common adapter utils - mandatory
-var adapterName = require('./package.json').name.split('.').pop();
-var senec   = require('./lib/senec');
-var adapter = utils.adapter('senec'); // - mandatory
+const utils = require('@iobroker/adapter-core'); // Get common adapter utils - mandatory
+const adapterName = require('./package.json').name.split('.').pop();
+const senec   = require('./lib/senec');
+const adapter = utils.adapter('senec'); // - mandatory
+const request = require('request')
 
 function main() {
 	homematicPath = adapter.config.daemon === 'virtual-devices' ? '/groups/' : '/';
@@ -21,12 +22,28 @@ function main() {
     adapter.setState('info.connection', false, true);
 }
 
+function readFromServer() {	
+	request.post('http://192.168.178.31/lala.cgi', {
+		json: {"STATISTIC":{"STAT_DAY_E_HOUSE":"","STAT_DAY_E_PV":"","STAT_DAY_BAT_CHARGE":"","STAT_DAY_BAT_DISCHARGE":"","STAT_DAY_E_GRID_IMPORT":"","STAT_DAY_E_GRID_EXPORT":"","STAT_YEAR_E_PU1_ARR":""},"ENERGY":{"STAT_STATE":"","STAT_STATE_DECODE":"","GUI_BAT_DATA_POWER":"","GUI_INVERTER_POWER":"","GUI_HOUSE_POW":"","GUI_GRID_POW":"","STAT_MAINT_REQUIRED":"","GUI_BAT_DATA_FUEL_CHARGE":"","GUI_CHARGING_INFO":"","GUI_BOOSTING_INFO":""},"WIZARD":{"CONFIG_LOADED":"","SETUP_NUMBER_WALLBOXES":"","SETUP_WALLBOX_SERIAL0":"","SETUP_WALLBOX_SERIAL1":"","SETUP_WALLBOX_SERIAL2":"","SETUP_WALLBOX_SERIAL3":""}}
+	}, (error, res, body) => {
+		if(error) {
+			adapter.log.info('error on request: '+ error);
+			return
+		}
+		
+		return body
+	})
+}
+
 adapter.on('ready', function () {
 	adapter.subscribeStates('*');
     main();
 	
+	// read all elements from service
+	const response = readFromServer();
+	adapter.log.info('response on request: '+ response);
 	
-	 // subscribe on all variables of this adapter instance with pattern "adapterName.X.*"
+	// subscribe on all variables of this adapter instance with pattern "adapterName.X.*"
 	adapter.setState('STAT_DAY_E_HOUSE', senec.getVarValue('fl_4179F679'), true);
 	adapter.setState('STAT_DAY_E_PV', 2, true);
 	adapter.setState('STAT_DAY_BAT_CHARGE', 3, true);
