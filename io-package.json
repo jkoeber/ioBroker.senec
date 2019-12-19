@@ -11,7 +11,7 @@
 			"Johannes Köber <jkoeber@gmail.com>"
 		]
 		"platform":"Javascript/Node.js",
-		"mode":"subscribe",
+		"mode":"daemon",
 		"enabled":"false",
 		"license":"MIT",
 		"loglevel":"debug",
