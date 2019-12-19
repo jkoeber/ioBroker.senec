@@ -2,7 +2,7 @@
   "name": "iobroker.senec",
   "version": "0.0.1",
   "description": "Adapter Senec Home Battery Informations",
-  "author": "Johannes Köber <jkoeber@gmail.com>"
+  "author": "Johannes Köber <jkoeber@gmail.com>",
   "homepage": "https://gitlab.com/jkoeber/iobroker.senec",
   "readme": "https://gitlab.com/jkoeber/iobroker.senec/README.md",
   "keywords": ["ioBroker", "senec", "battery"],
