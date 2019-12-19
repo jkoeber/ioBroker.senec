@@ -2,7 +2,26 @@ var utils = require(__dirname + '/lib/utils'); // Get common adapter utils - man
 var adapterName = require('./package.json').name.split('.').pop();
 var adapter = utils.adapter('senec'); // - mandatory
 
+function main() {
+	homematicPath = adapter.config.daemon === 'virtual-devices' ? '/groups/' : '/';
+	
+	adapter.config.reconnectInterval = parseInt(adapter.config.reconnectInterval, 10) || 30;
+    if (adapter.config.reconnectInterval < 10) {
+        adapter.log.error('Reconnect interval is less than 10 seconds. Set reconnect interval to 10 seconds.');
+        adapter.config.reconnectInterval = 10;
+    }
+	
+	adapter.config.checkInitInterval = parseInt(adapter.config.checkInitInterval, 10);
+    if (adapter.config.checkInitInterval < 10) {
+        adapter.log.error('Check init interval is less than 10 seconds. Set init interval to 10 seconds.');
+        adapter.config.checkInitInterval = 10;
+    }
+
+    adapter.setState('info.connection', false, true);
+}
+
 adapter.on('ready', function () {
+	adapter.subscribeStates('*');
     main();
 });
 
@@ -19,12 +38,7 @@ adapter.on('stateChange', function (id, state) {
     }
 });
 
-adapter.log.debug("debug message"); // log message with debug level
-adapter.log.info("info message");   // log message with info level (enabled by default for all adapters)
-adapter.log.warn("warning");        // log message with info warn
-adapter.log.error("error");         // log message with info error
-
-adapter.subscribeStates('*'); // subscribe on all variables of this adapter instance with pattern "adapterName.X.*"
+ // subscribe on all variables of this adapter instance with pattern "adapterName.X.*"
 
 adapter.setState('STAT_DAY_E_HOUSE', 1, true);
 adapter.setState('STAT_DAY_E_PV', 2, true);
