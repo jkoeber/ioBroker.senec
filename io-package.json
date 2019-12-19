@@ -1,0 +1,182 @@
+{
+	"common": {
+		"name": "senec",
+		"version": "0.0.1",
+		"title": "Senec Home V.2.1",
+		"desc": {
+			"de":"Auslesen aller Werte aus dem senect cgi service",
+			"en":"Read all informations from senec cgi service"
+		},
+		"authors": [
+			"Johannes Köber <jkoeber@gmail.com>"
+		]
+		"platform":"Javascript/Node.js",
+		"mode":"subscribe",
+		"enabled":"false",
+		"license":"MIT",
+		"loglevel":"debug",
+		"readme":"https://www.jkoeber.de/ioBroker/senec",
+		"icon":"senec.jpg",
+		"keywords": ["senec", "senec home", "battery"],
+		"localLink":"www",
+		"type":"api",
+		"supportStopInstance":true,
+		"objects": [
+        {
+            "_id": "_design/senec",
+            "language": "javascript",
+            "views": {
+                "listDevices": {
+                    "map": "function(doc) {\n  if (doc._id.match(/^hm-rpc\\.[0-9]+\\.\\*?[A-Za-z0-9_-]+(\\.[0-9]+)?$/)) {\n   emit(doc._id, {ADDRESS:(doc.native?doc.native.ADDRESS:''),VERSION:(doc.native?doc.native.VERSION:'')});\n  }\n}"
+                },
+                "paramsetDescription": {
+                    "map": "function(doc) {\n  if (doc._id.match(/^hm-rpc\\.meta/) && doc.meta.type === 'paramsetDescription') {\n   emit(doc._id, doc);\n  }\n}"
+                }
+            }
+        }
+		],
+		"instanceObjects": [
+			{
+				"_id": "STAT_DAY_E_HOUSE",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "STAT_DAY_E_PV",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "STAT_DAY_BAT_CHARGE",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "STAT_DAY_BAT_DISCHARGE",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "STAT_DAY_E_GRID_IMPORT",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "STAT_DAY_E_GRID_EXPORT",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "GUI_BAT_DATA_POWER",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "GUI_INVERTER_POWER",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "GUI_HOUSE_POW",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "GUI_GRID_POW",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "STAT_MAINT_REQUIRED",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "GUI_BAT_DATA_FUEL_CHARGE",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "GUI_CHARGING_INFO",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			},
+			{
+				"_id": "GUI_BOOSTING_INFO",
+				"type": "state",
+				"common": {
+					"name": "Some new devices added",
+					"type": "bool",
+					"read":  true,
+					"write": true
+				}
+			}
+		]
+	}
+}
+	
