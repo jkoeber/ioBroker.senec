@@ -131,6 +131,23 @@ adapter.on('stateChange', function (id, state) {
     }
 });
 
+let rpc;
+let rpcClient;
+
+let rpcServer;
+
+const metaValues = {};
+let metaRoles = {};
+const dpTypes = {};
+
+let lastEvent = 0;
+let eventInterval;
+let connInterval;
+let connTimeout;
+let daemonURL = '';
+let daemonProto = '';
+let homematicPath;
+
 function initRpcServer() {
     adapter.config.homematicPort = parseInt(adapter.config.homematicPort, 10);
     adapter.config.port = parseInt(adapter.config.port, 10);
@@ -329,4 +346,37 @@ function initRpcServer() {
 
     });
 } // endInitRPCServer
+
+const methods = {
+    event: function (err, params) {
+        adapter.log.debug(adapter.config.type + 'rpc <- event ' + JSON.stringify(params));
+        let val;
+        // CUxD ignores all prefixes!!
+        if (params[0] === 'CUxD' || params[0].indexOf(adapter.name) === -1) {
+            params[0] = adapter.namespace;
+        }
+        const channel = params[1].replace(':', '.').replace(FORBIDDEN_CHARS, '_');
+        const name = params[0] + '.' + channel + '.' + params[2];
+
+        if (dpTypes[name]) {
+            if (dpTypes[name].MIN !== undefined && dpTypes[name].UNIT === '%') {
+                val = ((parseFloat(params[3]) - dpTypes[name].MIN) / (dpTypes[name].MAX - dpTypes[name].MIN)) * 100;
+                val = Math.round(val * 100) / 100;
+            } else if (dpTypes[name].UNIT === '100%' || (dpTypes[name].UNIT === '%' && dpTypes[name].MAX === 1)) {
+                val = params[3] * 100;
+            } else {
+                val = params[3];
+            }
+        } else {
+            val = params[3];
+        }
+        adapter.log.debug(name + ' ==> UNIT: "' + (dpTypes[name] ? dpTypes[name].UNIT : 'none') + '" (min: ' + (dpTypes[name] ? dpTypes[name].MIN : 'none') + ', max: ' + (dpTypes[name] ? dpTypes[name].MAX : 'none') + ') From "' + params[3] + '" => "' + val + '"');
+
+        adapter.setState(channel + '.' + params[2], {val: val, ack: true});
+        return '';
+    }
+
+};
+
+const queueValueParamsets = [];
  
