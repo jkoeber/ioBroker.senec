@@ -20,8 +20,7 @@
 		"keywords": ["senec", "senec home", "battery"],
 		"type":"api",
 		"supportStopInstance":true,
-		"objects": [
-        {
+		"objects": [{
             "_id": "_design/senec",
             "language": "javascript",
             "views": {
@@ -40,7 +39,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -50,7 +49,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -60,7 +59,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -70,7 +69,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -80,7 +79,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -90,7 +89,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -100,7 +99,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -110,7 +109,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -120,7 +119,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -130,7 +129,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -140,7 +139,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -150,7 +149,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -160,7 +159,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
@@ -170,7 +169,7 @@
 				"type": "state",
 				"common": {
 					"name": "Some new devices added",
-					"type": "bool",
+					"type": "number",
 					"read":  true,
 					"write": true
 				}
