@@ -10,6 +10,7 @@
 		"authors": [
 			"Johannes Koeber <jkoeber@gmail.com>"
 		],
+		"allowInit": true,
 		"platform":"Javascript/Node.js",
 		"mode":"daemon",
 		"enabled":"false",
@@ -18,106 +19,123 @@
 		"readme":"https://www.jkoeber.de/ioBroker/senec",
 		"icon":"senec.jpg",
 		"keywords": ["senec", "senec home", "battery"],
+		"config": {
+	      "width": 650,
+	      "height": 500,
+	      "minWidth": 650,
+	      "minHeight": 450
+	    },
 		"type":"api",
 		"supportStopInstance":true,
-		"objects": [
-		],
+		"native": {
+			"senecIp":"192.168.178.35"
+		},
+		"objects": [],
 		"instanceObjects": [
 			{
 				"_id": "STAT_DAY_E_HOUSE",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Hausverbrauch Tag",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "STAT_DAY_E_PV",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Photovoltaik Erzeugung Tag",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "STAT_DAY_BAT_CHARGE",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Batterieladung Tag",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "STAT_DAY_BAT_DISCHARGE",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Batterieentladung Tag",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "STAT_DAY_E_GRID_IMPORT",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Netzentnahme Tag",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "STAT_DAY_E_GRID_EXPORT",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Netzbelieferung Tag",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "GUI_BAT_DATA_POWER",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Battery Data Power",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "GUI_INVERTER_POWER",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Inverter Power",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "GUI_HOUSE_POW",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "House Power",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "GUI_GRID_POW",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Grid Power",
 					"type": "number",
 					"read":  true,
 					"write": true
@@ -127,41 +145,45 @@
 				"_id": "STAT_MAINT_REQUIRED",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Wartung notwendig",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "GUI_BAT_DATA_FUEL_CHARGE",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Battery Data Fuel Charge",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "GUI_CHARGING_INFO",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Ladungsinformation",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			},
 			{
 				"_id": "GUI_BOOSTING_INFO",
 				"type": "state",
 				"common": {
-					"name": "Some new devices added",
+					"name": "Boosting Information",
 					"type": "number",
 					"read":  true,
 					"write": true
-				}
+				},
+      			"native": {}
 			}
 		]
 	}
