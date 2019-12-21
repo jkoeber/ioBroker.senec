@@ -1,6 +1,6 @@
 "use strict";
 
-const utils = require('@iobroker/adapter-core'); // Get common adapter utils - mandatory
+const utils = require(__dirname + '/lib/utils'); // Get common adapter utils
 const senec   = require('./lib/senec');
 const request = require('request');
 var lang = 'de';
@@ -10,19 +10,6 @@ const adapter = utils.adapter('senec'); // - mandatory
 var senecIp;
 
 adapter.on('ready', function () {
-	
-	adapter.getForeignObject('system.adapter.' + adapter.namespace, function (err, obj) {
-	     if (!err && obj && (obj.common.mode !== 'daemon')) {
-	          obj.common.mode = 'daemon';
-	          if (obj.common.schedule) delete(obj.common.schedule);
-	          adapter.setForeignObject(obj._id, obj);
-	     }
-	});
-	
-	// subscribe to all state changes
-	adapter.subscribeStates('*');
-	
-	adapter.log.debug('initializing objects');
     main();
 });
 
@@ -88,9 +75,17 @@ function readFromServer(senecIp) {
 }
  
 function main() {
-    readSettings();
-    adapter.log.info('objects written');
-    
-    // subscribe to all state changes
-    adapter.subscribeStates('*');
+	adapter.getForeignObject('system.adapter.' + adapter.namespace, function (err, obj) {
+	     if (!err && obj && (obj.common.mode !== 'daemon')) {
+	          obj.common.mode = 'daemon';
+	          if (obj.common.schedule) delete(obj.common.schedule);
+	          adapter.setForeignObject(obj._id, obj);
+	     }
+	});
+	
+	// subscribe to all state changes
+	adapter.subscribeStates('*');
+	
+	// read settings
+	readSettings();
 }

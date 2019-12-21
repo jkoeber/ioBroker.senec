@@ -2,6 +2,11 @@
 	"common": {
 		"name": "senec",
 		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+		        "en": "initial adapter"
+		    }
+		},
 		"title": "Senec Home V.2.1",
 		"desc": {
 			"de":"Auslesen aller Werte aus dem senect cgi service",
