@@ -34,8 +34,8 @@ function main() {
     adapter.objects.getObjectView('system', 'instance', 
     		{startkey: 'senec.' + adapter.instance + '.', endkey: 'senec.' + adapter.instance + '.\u9999'},
     	(err, doc) => {
-	        if (err || !doc || !doc.rows || !doc.rows.length) {
-	            return callback && callback([]);
+	        if (err) {
+	        	adapter.log.error(`getObjectView senec: ${err}`);
 	        }
 	        const res = [];
 	        doc.rows.forEach(row => res.push(row.value));
