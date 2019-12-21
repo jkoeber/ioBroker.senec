@@ -73,6 +73,9 @@ function readFromServer(senecIp) {
 		adapter.setState('GUI_GRID_POW', senec.getVarValue(jsonObject.ENERGY.GUI_GRID_POW), true);
 	})
 }
+function checkStatus() {
+	adapter.setState("info.lastsync", {val: new Date().toISOString(), ack: true});
+}
  
 function main() {
 	adapter.getForeignObject('system.adapter.' + adapter.namespace, function (err, obj) {
@@ -88,10 +91,10 @@ function main() {
 	
 	// read settings
 	readSettings();
+	checkStatus();
 	
 	// status
 	adapter.setState('info.connection', {val: true, ack: true});
-	adapter.setState("info.lastsync", {val: new Date().toISOString(), ack: true});
 	
 	// set interval
 	setInterval(checkStatus, 10 * 1000);
