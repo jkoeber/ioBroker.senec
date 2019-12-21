@@ -88,4 +88,11 @@ function main() {
 	
 	// read settings
 	readSettings();
+	
+	// status
+	adapter.setState('info.connection', {val: true, ack: true});
+	adapter.setState("info.lastsync", {val: new Date().toISOString(), ack: true});
+	
+	// set interval
+	setInterval(checkStatus, 10 * 1000);
 }
