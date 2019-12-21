@@ -20,8 +20,7 @@ adapter.on('ready', function () {
 
         setTimeout(function () {
             adapter.log.info('force terminating adapter after 1 minute');
-            adapter.stop();
-        }, 60000);
+        }, 30000);
 
     });
 });
@@ -43,7 +42,7 @@ function readSettings() {
     senecIp = adapter.config.senecId;
     if (senecIp === undefined || senecIp === "") {
         adapter.log.error('Enter senecIp!'); // Translate!
-        adapter.stop();
+        return
     }  
     
     readFromServer();
