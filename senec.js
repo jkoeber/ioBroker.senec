@@ -35,6 +35,60 @@ function readSettings() {
     
     readFromServer(senecIp);
 }
+function createInfoObjects() {
+    adapter.delObject('STAT_DAY_E_HOUSE');
+    adapter.delObject('STAT_DAY_E_PV');
+    adapter.delObject('STAT_DAY_BAT_CHARGE');
+    adapter.delObject('STAT_DAY_BAT_DISCHARGE');
+
+    adapter.setObjectNotExists('info', {
+        type: 'channel',
+        common: {
+            name: "Information"
+        },
+        native: {}
+    });
+    adapter.setObjectNotExists('STAT_DAY_E_HOUSE', {
+        type: 'state',
+        common: {
+			"name": "Hausverbrauch Tag",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    });
+    adapter.setObjectNotExists('STAT_DAY_E_PV', {
+        type: 'state',
+        common: {
+			"name": "Photovoltaik Erzeugung Tag",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    });
+    adapter.setObjectNotExists('STAT_DAY_BAT_CHARGE', {
+        type: 'state',
+        common: {
+			"name": "Batterieladung Tag",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    });
+    adapter.setObjectNotExists('STAT_DAY_BAT_DISCHARGE', {
+        type: 'state',
+        common: {
+			"name": "Batterieentladung Tag",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    });
+}
 
 function readFromServer(senecIp) {
 	adapter.log.info('send request: http://'+senecIp+'/lala.cgi');
@@ -75,6 +129,9 @@ function readFromServer(senecIp) {
 }
 function checkStatus() {
 	adapter.setState("info.lastsync", {val: new Date().toISOString(), ack: true});
+	
+	// read settings
+	readSettings();
 }
  
 function main() {
@@ -86,11 +143,13 @@ function main() {
 	     }
 	});
 	
+	// create objects
+	createInfoObjects();
+	
 	// subscribe to all state changes
 	adapter.subscribeStates('*');
 	
-	// read settings
-	readSettings();
+	// check status and read values
 	checkStatus();
 	
 	// status
