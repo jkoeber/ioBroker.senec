@@ -15,7 +15,6 @@ let metaRoles = {};
 const dpTypes = {};
 
 function main() {
-	homematicPath = adapter.config.daemon === 'virtual-devices' ? '/groups/' : '/';
 	
 	adapter.config.reconnectInterval = parseInt(adapter.config.reconnectInterval, 10) || 30;
     if (adapter.config.reconnectInterval < 10) {
@@ -32,7 +31,7 @@ function main() {
     adapter.setState('info.connection', false, true);
 	
 	// Load VALUE paramsetDescriptions (needed to create state objects)
-    adapter.getObjectView('senec', 'paramsetDescription', {
+    adapter.objects.getObjectView('senec', 'paramsetDescription', {
         startkey: 'senec.meta.VALUES',
         endkey: 'senec.meta.VALUES.\u9999'
     }, (err, doc) => {
