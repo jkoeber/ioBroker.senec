@@ -17,11 +17,6 @@ adapter.on('ready', function () {
 
         adapter.log.debug('initializing objects');
         main();
-
-        setTimeout(function () {
-            adapter.log.info('force terminating adapter after 1 minute');
-        }, 30000);
-
     });
 });
 
@@ -82,5 +77,7 @@ function readFromServer(senecIp) {
 function main() {
     readSettings();
     adapter.log.info('objects written');
-    //adapter.stop();
+    
+    // subscribe to all state changes
+    adapter.subscribeStates('*');
 }
