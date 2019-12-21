@@ -31,20 +31,20 @@ function main() {
     adapter.setState('info.connection', false, true);
 	
     // list devices
-    adapter.objects.getObjectView('senec', 'instance', 
-    		{startkey: 'senec.adapter.', endkey: 'senec.adapter.\u9999'}, (err, doc) => {
-        if (err || !doc || !doc.rows || !doc.rows.length) {
-            return callback && callback([]);
-        }
-        const res = [];
-        doc.rows.forEach(row => res.push(row.value));
-        const instances = {};
-        res.forEach(instance => {
-            instances[instance.common.name] = {};
-            instances[instance.common.name].version = instance.common.installedVersion;
-        });
-        callback && callback(instances);
-    });
+    adapter.objects.getObjectView('system', 'instance', 
+    		{startkey: 'senec.' + adapter.instance + '.', endkey: 'senec.' + adapter.instance + '.\u9999'},
+    	(err, doc) => {
+	        if (err || !doc || !doc.rows || !doc.rows.length) {
+	            return callback && callback([]);
+	        }
+	        const res = [];
+	        doc.rows.forEach(row => res.push(row.value));
+	        const instances = {};
+	        res.forEach(instance => {
+	            instances[instance.common.name] = {};
+	            instances[instance.common.name].version = instance.common.installedVersion;
+	        });
+	    });
     
 	/* Load VALUE paramsetDescriptions (needed to create state objects)
     adapter.getObjectView('system', 'paramsetDescription', {
@@ -60,41 +60,6 @@ function main() {
         }
     });
 	*/
-    
-	adapter.getObjectView('system', 'state', {
-        startkey: adapter.namespace,
-        endkey: adapter.namespace + '\u9999'
-    }, (err, res) => {
-        if (!err && res.rows) {
-            for (const row of res.rows) {
-                if (row.id === adapter.namespace + '.updated') continue;
-                if (!row.value.native) {
-                    adapter.log.warn(`State ${row.id} does not have native.`);
-                    dpTypes[row.id] = {UNIT: '', TYPE: ''};
-                } else {
-                    dpTypes[row.id] = {
-                        UNIT: row.value.native.UNIT,
-                        TYPE: row.value.native.TYPE,
-                        MIN: row.value.native.MIN,
-                        MAX: row.value.native.MAX
-                    };
-
-                    if (typeof dpTypes[row.id].MIN === 'number') {
-                        dpTypes[row.id].MIN = parseFloat(dpTypes[row.id].MIN);
-                        dpTypes[row.id].MAX = parseFloat(dpTypes[row.id].MAX);
-                        if (dpTypes[row.id].UNIT === '100%') {
-                            dpTypes[row.id].UNIT = '%';
-                        }
-                        if (dpTypes[row.id].MAX === 99) {
-                            dpTypes[row.id].MAX = 100;
-                        } else if (dpTypes[row.id].MAX === 1.005 || dpTypes[row.id].MAX === 1.01) {
-                            dpTypes[row.id].MAX = 1;
-                        } // endElseIf
-                    } // endIf
-                }
-            }
-        }
-    });
 }
 
 function readFromServer() {	
