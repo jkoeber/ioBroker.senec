@@ -53,6 +53,10 @@ function readFromServer(senecIp) {
 			return
 		}
 		
+		// resource
+		var jsonObject = JSON.parse(body);
+		adapter.log.info('statistic response: ' + jsonObject.STATISTIC.STAT_DAY_E_HOUSE);
+		
 		// output response to log
 		adapter.log.info('got feedback from senec service: ' + body);
 		
