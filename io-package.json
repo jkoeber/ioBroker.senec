@@ -13,7 +13,9 @@
 		"allowInit": true,
 		"platform":"Javascript/Node.js",
 		"mode":"daemon",
-		"enabled":"false",
+		"enabled": false,
+		"messagebox": true,
+	    "subscribe": "messagebox",
 		"license":"MIT",
 		"loglevel":"debug",
 		"readme":"https://www.jkoeber.de/ioBroker/senec",
@@ -28,7 +30,8 @@
 		"type":"api",
 		"supportStopInstance":true,
 		"native": {
-			"senecIp":"192.168.178.35"
+			"senecIp":"192.168.178.31",
+			"update_interval": 60
 		},
 		"objects": [],
 		"instanceObjects": [

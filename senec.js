@@ -10,14 +10,20 @@ const adapter = utils.adapter('senec'); // - mandatory
 var senecIp;
 
 adapter.on('ready', function () {
-	adapter.getForeignObject('system.config', function (err, data) {
-        if (data && data.common) {
-            lang  = data.common.language;
-        }
-
-        adapter.log.debug('initializing objects');
-        main();
-    });
+	
+	adapter.getForeignObject('system.adapter.' + adapter.namespace, function (err, obj) {
+	     if (!err && obj && (obj.common.mode !== 'daemon')) {
+	          obj.common.mode = 'daemon';
+	          if (obj.common.schedule) delete(obj.common.schedule);
+	          adapter.setForeignObject(obj._id, obj);
+	     }
+	});
+	
+	// subscribe to all state changes
+	adapter.subscribeStates('*');
+	
+	adapter.log.debug('initializing objects');
+    main();
 });
 
 adapter.on('objectChange', function (id, obj) {
