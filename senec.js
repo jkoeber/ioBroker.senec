@@ -40,6 +40,16 @@ function createInfoObjects() {
     adapter.delObject('STAT_DAY_E_PV');
     adapter.delObject('STAT_DAY_BAT_CHARGE');
     adapter.delObject('STAT_DAY_BAT_DISCHARGE');
+    adapter.delObject('STAT_DAY_E_GRID_IMPORT');
+    adapter.delObject('STAT_DAY_E_GRID_EXPORT');
+    adapter.delObject('GUI_BAT_DATA_POWER');
+    adapter.delObject('GUI_INVERTER_POWER');
+    adapter.delObject('GUI_HOUSE_POW');
+    adapter.delObject('GUI_GRID_POW');
+    adapter.delObject('STAT_MAINT_REQUIRED');
+    adapter.delObject('GUI_BAT_DATA_FUEL_CHARGE');
+    adapter.delObject('GUI_CHARGING_INFO');
+    adapter.delObject('GUI_BOOSTING_INFO');
 
     adapter.setObjectNotExists('info', {
         type: 'channel',
@@ -71,7 +81,7 @@ function createInfoObjects() {
     adapter.setObjectNotExists('STAT_DAY_BAT_CHARGE', {
         type: 'state',
         common: {
-			"name": "Batterieladung Tag",
+			"name": "Tageswert Batterie Ladung",
 			"type": "number",
 			"read":  true,
 			"write": true
@@ -81,7 +91,107 @@ function createInfoObjects() {
     adapter.setObjectNotExists('STAT_DAY_BAT_DISCHARGE', {
         type: 'state',
         common: {
-			"name": "Batterieentladung Tag",
+			"name": "Tageswert Batterie Entladung",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    }),
+    adapter.setObjectNotExists('STAT_DAY_E_GRID_IMPORT', {
+        type: 'state',
+        common: {
+			"name": "Tageswert Netzentnahme",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    }),
+    adapter.setObjectNotExists('STAT_DAY_E_GRID_EXPORT', {
+        type: 'state',
+        common: {
+			"name": "Tageswert Netzeinspeisung",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    }),
+    adapter.setObjectNotExists('GUI_BAT_DATA_POWER', {
+        type: 'state',
+        common: {
+			"name": "Batterie Data Leistung",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    }),
+    adapter.setObjectNotExists('GUI_INVERTER_POWER', {
+        type: 'state',
+        common: {
+			"name": "Inverter Leistung",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    }),
+    adapter.setObjectNotExists('GUI_HOUSE_POW', {
+        type: 'state',
+        common: {
+			"name": "Haus Leistung",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    }),
+    adapter.setObjectNotExists('GUI_GRID_POW', {
+        type: 'state',
+        common: {
+			"name": "Neztleistung",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    }),
+    adapter.setObjectNotExists('STAT_MAINT_REQUIRED', {
+        type: 'state',
+        common: {
+			"name": "Wartung notwendig",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    }),
+    adapter.setObjectNotExists('GUI_BAT_DATA_FUEL_CHARGE', {
+        type: 'state',
+        common: {
+			"name": "Battery Data Fuel Charge",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    }),
+    adapter.setObjectNotExists('GUI_CHARGING_INFO', {
+        type: 'state',
+        common: {
+			"name": "Ladungsinformation",
+			"type": "number",
+			"read":  true,
+			"write": true
+        },
+        native: {}
+    }),
+    adapter.setObjectNotExists('GUI_BOOSTING_INFO', {
+        type: 'state',
+        common: {
+			"name": "Boosting Information",
 			"type": "number",
 			"read":  true,
 			"write": true
