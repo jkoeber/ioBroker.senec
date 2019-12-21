@@ -39,7 +39,7 @@ adapter.on('stateChange', function (id, state) {
 });
 
 function readSettings() {
-    senecIp = adapter.config.senecId;
+    senecIp = adapter.config.senecIp;
     if (senecIp === undefined || senecIp === "") {
         adapter.log.error('Enter senecIp!'); // Translate!
         return
