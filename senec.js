@@ -3,6 +3,8 @@
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils - mandatory
 const senec   = require('./lib/senec');
 const request = require('request');
+var lang = 'de';
+
 const adapter = utils.adapter('senec'); // - mandatory
 
 var senecIp;
