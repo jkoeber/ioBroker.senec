@@ -30,8 +30,24 @@ function main() {
 
     adapter.setState('info.connection', false, true);
 	
-	// Load VALUE paramsetDescriptions (needed to create state objects)
-    adapter.objects.getObjectView('senec', 'paramsetDescription', {
+    // list devices
+    adapter.objects.getObjectView('senec', 'listDevices', 
+	     {startkey: 'senec.' + adapter.instance + '.', endkey: 'senec.' + adapter.instance + '.\u9999'}, 
+	     function (err, doc) {
+		if (doc && doc.rows) {	
+			for (var i = 0; i < doc.rows.length; i++) {
+				 var id  = doc.rows[i].id;
+				 var obj = doc.rows[i].value;
+				 console.log('Found ' + id + ': ' + JSON.stringify(obj));
+			}
+	                if (!doc.rows.length) console.log('No objects found.');
+		} else {
+			console.log('No objects found: ' + err);
+		}
+	});
+    
+	/* Load VALUE paramsetDescriptions (needed to create state objects)
+    adapter.getObjectView('system', 'paramsetDescription', {
         startkey: 'senec.meta.VALUES',
         endkey: 'senec.meta.VALUES.\u9999'
     }, (err, doc) => {
@@ -43,7 +59,8 @@ function main() {
             }
         }
     });
-	
+	*/
+    
 	adapter.getObjectView('system', 'state', {
         startkey: adapter.namespace,
         endkey: adapter.namespace + '\u9999'
