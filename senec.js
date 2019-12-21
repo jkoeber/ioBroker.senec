@@ -45,7 +45,8 @@ function readSettings() {
 
 function readFromServer(senecIp) {
 	adapter.log.info('send request: http://'+senecIp+'/lala.cgi');
-	request.post('http://'+senecIp+'/lala.cgi', {
+	request.post({
+		url: 'http://'+senecIp+'/lala.cgi',
 		json: {"STATISTIC":{"STAT_DAY_E_HOUSE":"","STAT_DAY_E_PV":"","STAT_DAY_BAT_CHARGE":"","STAT_DAY_BAT_DISCHARGE":"","STAT_DAY_E_GRID_IMPORT":"","STAT_DAY_E_GRID_EXPORT":"","STAT_YEAR_E_PU1_ARR":""},"ENERGY":{"STAT_STATE":"","STAT_STATE_DECODE":"","GUI_BAT_DATA_POWER":"","GUI_INVERTER_POWER":"","GUI_HOUSE_POW":"","GUI_GRID_POW":"","STAT_MAINT_REQUIRED":"","GUI_BAT_DATA_FUEL_CHARGE":"","GUI_CHARGING_INFO":"","GUI_BOOSTING_INFO":""},"WIZARD":{"CONFIG_LOADED":"","SETUP_NUMBER_WALLBOXES":"","SETUP_WALLBOX_SERIAL0":"","SETUP_WALLBOX_SERIAL1":"","SETUP_WALLBOX_SERIAL2":"","SETUP_WALLBOX_SERIAL3":""}}
 	}, (error, res, body) => {
 		if(error) {
@@ -55,26 +56,26 @@ function readFromServer(senecIp) {
 		
 		// resource
 		var jsonObject = JSON.parse(body);
-		adapter.log.info('statistic response: ' + jsonObject.STATISTIC.STAT_DAY_E_HOUSE);
+		// adapter.log.info('statistic response: ' + jsonObject.STATISTIC.STAT_DAY_E_HOUSE);
 		
 		// output response to log
 		adapter.log.info('got feedback from senec service: ' + body);
 		
 		// subscribe on all variables of this adapter instance with pattern "adapterName.X.*"
-		adapter.setState('STAT_DAY_E_HOUSE', senec.getVarValue('fl_4179F679'), true);
-		adapter.setState('STAT_DAY_E_PV', 2, true);
-		adapter.setState('STAT_DAY_BAT_CHARGE', 3, true);
-		adapter.setState('STAT_DAY_BAT_DISCHARGE', 4, true);
-		adapter.setState('STAT_DAY_E_GRID_IMPORT', 5, true);
-		adapter.setState('STAT_DAY_E_GRID_EXPORT', 6, true);
-		adapter.setState('GUI_BAT_DATA_POWER', 7, true);
-		adapter.setState('GUI_INVERTER_POWER', 8, true);
-		adapter.setState('GUI_HOUSE_POW', 9, true);
-		adapter.setState('STAT_MAINT_REQUIRED', 10, true);
-		adapter.setState('GUI_BAT_DATA_FUEL_CHARGE', 11, true);
-		adapter.setState('GUI_CHARGING_INFO', 12, true);
-		adapter.setState('GUI_BOOSTING_INFO', 13, true);
-		adapter.setState('GUI_GRID_POW', 14, true);
+		adapter.setState('STAT_DAY_E_HOUSE', senec.getVarValue(jsonObject.STATISTIC.STAT_DAY_E_HOUSE), true);
+		adapter.setState('STAT_DAY_E_PV', senec.getVarValue(jsonObject.STATISTIC.STAT_DAY_E_PV), true);
+		adapter.setState('STAT_DAY_BAT_CHARGE', senec.getVarValue(jsonObject.STATISTIC.STAT_DAY_BAT_CHARGE), true);
+		adapter.setState('STAT_DAY_BAT_DISCHARGE', senec.getVarValue(jsonObject.STATISTIC.STAT_DAY_BAT_DISCHARGE), true);
+		adapter.setState('STAT_DAY_E_GRID_IMPORT', senec.getVarValue(jsonObject.STATISTIC.STAT_DAY_E_GRID_IMPORT), true);
+		adapter.setState('STAT_DAY_E_GRID_EXPORT', senec.getVarValue(jsonObject.STATISTIC.STAT_DAY_E_GRID_EXPORT), true);
+		adapter.setState('GUI_BAT_DATA_POWER', senec.getVarValue(jsonObject.STATISTIC.GUI_BAT_DATA_POWER), true);
+		adapter.setState('GUI_INVERTER_POWER', senec.getVarValue(jsonObject.STATISTIC.GUI_INVERTER_POWER), true);
+		adapter.setState('GUI_HOUSE_POW', senec.getVarValue(jsonObject.STATISTIC.GUI_HOUSE_POW), true);
+		adapter.setState('STAT_MAINT_REQUIRED', senec.getVarValue(jsonObject.STATISTIC.STAT_MAINT_REQUIRED), true);
+		adapter.setState('GUI_BAT_DATA_FUEL_CHARGE', senec.getVarValue(jsonObject.STATISTIC.GUI_BAT_DATA_FUEL_CHARGE), true);
+		adapter.setState('GUI_CHARGING_INFO', senec.getVarValue(jsonObject.STATISTIC.GUI_CHARGING_INFO), true);
+		adapter.setState('GUI_BOOSTING_INFO', senec.getVarValue(jsonObject.STATISTIC.GUI_BOOSTING_INFO), true);
+		adapter.setState('GUI_GRID_POW', senec.getVarValue(jsonObject.STATISTIC.GUI_GRID_POW), true);
 	})
 }
  
