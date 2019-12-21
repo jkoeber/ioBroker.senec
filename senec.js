@@ -31,20 +31,20 @@ function main() {
     adapter.setState('info.connection', false, true);
 	
     // list devices
-    adapter.objects.getObjectView('senec', 'listDevices', 
-	     {startkey: 'senec.' + adapter.instance + '.', endkey: 'senec.' + adapter.instance + '.\u9999'}, 
-	     function (err, doc) {
-		if (doc && doc.rows) {	
-			for (var i = 0; i < doc.rows.length; i++) {
-				 var id  = doc.rows[i].id;
-				 var obj = doc.rows[i].value;
-				 console.log('Found ' + id + ': ' + JSON.stringify(obj));
-			}
-	                if (!doc.rows.length) console.log('No objects found.');
-		} else {
-			console.log('No objects found: ' + err);
-		}
-	});
+    adapter.objects.getObjectView('senec', 'instance', 
+    		{startkey: 'senec.adapter.', endkey: 'senec.adapter.\u9999'}, (err, doc) => {
+        if (err || !doc || !doc.rows || !doc.rows.length) {
+            return callback && callback([]);
+        }
+        const res = [];
+        doc.rows.forEach(row => res.push(row.value));
+        const instances = {};
+        res.forEach(instance => {
+            instances[instance.common.name] = {};
+            instances[instance.common.name].version = instance.common.installedVersion;
+        });
+        callback && callback(instances);
+    });
     
 	/* Load VALUE paramsetDescriptions (needed to create state objects)
     adapter.getObjectView('system', 'paramsetDescription', {
