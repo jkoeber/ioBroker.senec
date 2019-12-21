@@ -1,4 +1,55 @@
 <html>
+
+    <!-- these 4 files always have to be included -->
+    <link rel="stylesheet" type="text/css" href="../../lib/css/themes/jquery-ui/redmond/jquery-ui.min.css"/>
+    <script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="../../lib/js/jquery-ui-1.10.3.full.min.js"></script>
+
+    <!-- these two file always have to be included -->
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+    
+    <style>
+        .description {
+            font-size: smaller;	
+        }
+        .headline {
+        	padding-top: 20px;
+        	padding-left: 10px;
+        }
+        .subline {
+        
+        }
+        .inputvalue {
+            width: 20%;
+            text-align: right;
+        }
+        .info {
+           padding: 5px 0 0 0;
+           color: gray;
+           font-style: italic;
+           font-size: 60%;
+           text-align: right;
+           width: 50%;
+        }
+    </style>
+    
+    <script type="text/javascript">
+	    function load(settings, onChange) {	             
+	        // senec Ip address
+	        $('#senecip').val(settings.senecIp).change(onChange).keyup(onChange);
+	        
+	        onChange(false);
+	    }
+	    function save(callback) {
+            callback({
+                senecIp: $('#senecip').val()
+            });
+        }
+    </script>
+    
 	<h2>Senec Home Battery System</h2>
 	
 	<form action="POST">
@@ -7,13 +58,7 @@
 		</div>
 	
 		<div class="battery-ip">
-			<input type="text" name="battery-ip" id="battery-ip" size="25" />
-		</div>
-		
-		<div>
-			<button type="submit" name="save-ip">
-				IP- Adresse speichern
-			</button>
+			<input type="text" name="senecip" id="senecip" size="25" />
 		</div>
 	</form>
 </html>
